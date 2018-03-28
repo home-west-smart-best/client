@@ -10,23 +10,18 @@ Thermostat::Thermostat(const std::string& appname,
                  const std::string& clientname,
                  const std::string& host,
                  int port):
-        CommandProcessor(appname, clientname, host, port)
+        Functionality(appname, clientname, host, port)
 {
-    std::cerr << "---- ** Started thermostat\n";
+    setRoutine(std::bind(&Thermostat::routine, this));
 
-    _thread = std::thread(std::bind(&Thermostat::routine, this));
+    std::cerr << "---- ** Created app: " << appname <<"\n";
 }
 
 Thermostat::~Thermostat()
-{
-    _thread.detach();
-    std::cerr << "---- ** Stopped thermostat\n";
-}
+= default;
 
 void Thermostat::routine()
 {
-    std::cerr << "---- ** Started thermostat\n";
-
     for (;;)
     {
         // TBD
@@ -36,13 +31,13 @@ void Thermostat::routine()
     }
 }
 
-void Thermostat::start(const parameters_t &commandParameters)
+void Thermostat::setTargetTemperature(const parameters_t &commandParameters)
 {
     //TBD
     _targetTemperature = 50;
 }
 
-int Thermostat::stop(const parameters_t &commandParameters) const
+int Thermostat::getTargetTemperature(const parameters_t &commandParameters) const
 {
     return _targetTemperature;
 }

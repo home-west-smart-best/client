@@ -1,26 +1,34 @@
 #ifndef TEMPERATURE_CONVERTER_H
 #define TEMPERATURE_CONVERTER_H
 
-#include "_libMQTT/CommandProcessor.h"
+#include "CommandProcessor.h"
 #include <string>
 #include <vector>
 
+#include "json.hpp"
 #include "thermostat.h"
 
-class CommandInterface : public CommandProcessor
+class AppController : public CommandProcessor
 {
+    using functionality_t = std::unique_ptr<Functionality>;
+    using json = nlohmann::json;
+
 public:
-    CommandInterface(const std::string &appname,
+    AppController(const std::string &appname,
                 const std::string &clientname,
                 const std::string &host,
                 int port);
 
-    virtual ~CommandInterface();
+    ~AppController() override;
 
 private:
-    void c2f(const std::vector<std::string> &commandParameters);
+    void setFunctionality(const std::vector<std::string> &commandParameters);
 
-    void f2c(const std::vector<std::string> &commandParameters);
+    void getFunctionality(const std::vector<std::string> &commandParameters);
+
+    int createFunctionality(const std::string &func);
+
+    std::map<std::string, functionality_t> _functionalities;
 };
 
 #endif

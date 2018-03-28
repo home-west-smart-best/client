@@ -1,49 +1,63 @@
-#include "_libMQTT/MQTTconfig.h"
+#include "MQTTconfig.h"
 #include "application.h"
 #include <iostream>
 
-CommandInterface::CommandInterface(const std::string &appname,
-                                           const std::string &clientname,
-                                           const std::string &host,
-                                           int port)
+AppController::AppController(const std::string &appname,
+                             const std::string &clientname,
+                             const std::string &host,
+                             int port)
         : CommandProcessor(appname, clientname, host, port)
 {
-    std::cerr << "---- ** Create application" << std::endl;
-    registerCommand("c2f", std::bind(&CommandInterface::c2f, this,
-                                     std::placeholders::_1));
-    registerCommand("f2c", std::bind(&CommandInterface::f2c, this,
-                                     std::placeholders::_1));
+    registerCommand("set_functionality", std::bind(&AppController::setFunctionality, this, std::placeholders::_1));
+    registerCommand("get_functionality", std::bind(&AppController::getFunctionality, this, std::placeholders::_1));
+
+    // create functionalities
+    _functionalities.emplace("thermostat", std::make_unique<Thermostat>("thermostat", "app", host, port));
+
+//    setFunctionality({R"([{"name" : "thermostat", "value" : false}])"});
+
+    std::cerr << "---- ** Application started" << std::endl;
 }
 
-CommandInterface::~CommandInterface()
+AppController::~AppController()
 {
-    std::cerr << "---- ** Destroy CommandInterface" << std::endl;
+    std::cerr << "---- ** Destroy AppController" << std::endl;
 }
 
-void CommandInterface::c2f(const std::vector<std::string> &commandParameters)
+void AppController::setFunctionality(const std::vector<std::string> &commandParameters)
 {
-    if (commandParameters.size() == 1)
+    json j = json::parse(commandParameters[0]);
+
+    for(const auto &func : j)
     {
-        double temp_celsius{std::stod(commandParameters[0])};
-        std::string temp_fahrenheit{"c2f " +
-                                    std::to_string(temp_celsius * 9.0 / 5.0 + 32.0)};
-        publishReturn("c2f", temp_fahrenheit);
-    } else
-    {
-        publishError("c2f", "number of parameters != 1");
+        auto it = _functionalities.find(func["name"]);
+
+        if (it != _functionalities.end())
+        {
+            if(func["value"].get<bool>()) it->second->start();
+        }
+        else
+        {
+            std::cerr << "---- ** Invalid functionality '" << func["name"] << "'" << std::endl;
+            return;
+        }
     }
 }
 
-void CommandInterface::f2c(const std::vector<std::string> &commandParameters)
+void AppController::getFunctionality(const std::vector<std::string> &commandParameters)
 {
-    if (commandParameters.size() == 1)
-    {
-        double temp_fahrenheit{std::stod(commandParameters[0])};
-        std::string temp_celsius{"f2c " +
-                                 std::to_string((temp_fahrenheit - 32) / 1.8)};
-        publishReturn("f2c", temp_celsius);
-    } else
-    {
-        publishError("f2c", "number of parameters != 1");
-    }
+
+}
+
+int AppController::createFunctionality(const std::string &func)
+{
+//    if(_functionalities.find(func) != _functionalities.end())
+//    {
+//        _functionalities.emplace(func, std::make_shared<Thermostat>("thermostat", "app", host, port));
+//    }
+//    else
+//    {
+//        sto
+//    }
+    return 0;
 }

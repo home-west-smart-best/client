@@ -8,11 +8,11 @@
 #include <thread>
 #include <memory>
 
-#include "_libMQTT/CommandProcessor.h"
+#include "functionality.h"
 
 using parameters_t = std::vector<std::string>;
 
-class Thermostat : public CommandProcessor
+class Thermostat : public Functionality
 {
 public:
     Thermostat(const std::string &appname,
@@ -22,16 +22,13 @@ public:
 
     ~Thermostat() override;
 
-    void start(const parameters_t &commandParameters);
+    void setTargetTemperature(const parameters_t &commandParameters);
 
-    int stop(const parameters_t &commandParameters) const;
+    int getTargetTemperature(const parameters_t &commandParameters) const;
 
     void routine();
 
-    void delay(int ms) { std::this_thread::sleep_for(std::chrono::milliseconds(ms)); }
-
 private:
-    std::thread _thread;
     int _targetTemperature;
 };
 

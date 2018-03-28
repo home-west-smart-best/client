@@ -55,8 +55,7 @@ int main(int argc, char *argv[])
              << major << '.' << minor << '.' << revision << endl;
 
         // Second MQTT client
-        Thermostat t("thermostat", "app", mqttBroker, mqttBrokerPort);
-        CommandInterface app("HWSB", "app", mqttBroker, mqttBrokerPort);
+        AppController app("control", "app", mqttBroker, mqttBrokerPort);
 
         // Checking rc for reconnection, 'clients' is an initializer_list
         auto clients = {static_cast<mosqpp::mosquittopp *>(&app)};

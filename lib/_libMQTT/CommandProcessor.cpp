@@ -43,7 +43,6 @@ void CommandProcessor::on_log(int level, const char *str)
 void CommandProcessor::registerCommand(const std::string &command,
                                        commandfunction cfunction)
 {
-    std::cerr << "CommandProcessor::registerCommand  " << command << std::endl;
     if (!commandIsRegistered(command))
     {
         commands_[command] = cfunction;
