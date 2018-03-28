@@ -1,19 +1,21 @@
 #ifndef TEMPERATURE_CONVERTER_H
 #define TEMPERATURE_CONVERTER_H
 
-#include "CommandProcessor.h"
+#include "_libMQTT/CommandProcessor.h"
 #include <string>
 #include <vector>
 
-class Application : public CommandProcessor
+#include "thermostat.h"
+
+class CommandInterface : public CommandProcessor
 {
 public:
-    Application(const std::string &appname,
+    CommandInterface(const std::string &appname,
                 const std::string &clientname,
                 const std::string &host,
                 int port);
 
-    virtual ~Application();
+    virtual ~CommandInterface();
 
 private:
     void c2f(const std::vector<std::string> &commandParameters);

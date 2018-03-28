@@ -1,7 +1,7 @@
 // cpMQTT: MQTT client, command processor
 
 #include "AppInfo.h"
-#include "MQTTconfig.h"
+#include "_libMQTT/MQTTconfig.h"
 #include "application.h"
 #include <atomic>
 #include <csignal>
@@ -55,10 +55,11 @@ int main(int argc, char *argv[])
              << major << '.' << minor << '.' << revision << endl;
 
         // Second MQTT client
-        Application tc("Tc", "tc", mqttBroker, mqttBrokerPort);
+        Thermostat t("thermostat", "app", mqttBroker, mqttBrokerPort);
+        CommandInterface app("HWSB", "app", mqttBroker, mqttBrokerPort);
 
         // Checking rc for reconnection, 'clients' is an initializer_list
-        auto clients = {static_cast<mosqpp::mosquittopp *>(&tc)};
+        auto clients = {static_cast<mosqpp::mosquittopp *>(&app)};
 
         while (!receivedSIGINT)
         {

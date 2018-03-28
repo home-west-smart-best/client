@@ -1,28 +1,26 @@
-#include "MQTTconfig.h"
+#include "_libMQTT/MQTTconfig.h"
 #include "application.h"
-#include "Topic.h"
-#include <string>
 #include <iostream>
 
-Application::Application(const std::string &appname,
+CommandInterface::CommandInterface(const std::string &appname,
                                            const std::string &clientname,
                                            const std::string &host,
                                            int port)
         : CommandProcessor(appname, clientname, host, port)
 {
-    std::cerr << "---- ** CTOR Application" << std::endl;
-    registerCommand("c2f", std::bind(&Application::c2f, this,
+    std::cerr << "---- ** Create application" << std::endl;
+    registerCommand("c2f", std::bind(&CommandInterface::c2f, this,
                                      std::placeholders::_1));
-    registerCommand("f2c", std::bind(&Application::f2c, this,
+    registerCommand("f2c", std::bind(&CommandInterface::f2c, this,
                                      std::placeholders::_1));
 }
 
-Application::~Application()
+CommandInterface::~CommandInterface()
 {
-    std::cerr << "---- ** DTOR Application" << std::endl;
+    std::cerr << "---- ** Destroy CommandInterface" << std::endl;
 }
 
-void Application::c2f(const std::vector<std::string> &commandParameters)
+void CommandInterface::c2f(const std::vector<std::string> &commandParameters)
 {
     if (commandParameters.size() == 1)
     {
@@ -36,7 +34,7 @@ void Application::c2f(const std::vector<std::string> &commandParameters)
     }
 }
 
-void Application::f2c(const std::vector<std::string> &commandParameters)
+void CommandInterface::f2c(const std::vector<std::string> &commandParameters)
 {
     if (commandParameters.size() == 1)
     {

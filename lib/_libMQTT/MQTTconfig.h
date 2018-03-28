@@ -16,8 +16,8 @@ const bool MQTT_RETAIN_OFF{false};
 const bool MQTT_RETAIN_ON{true};
 
 const std::string MQTT_LOCAL_BROKER{"127.0.0.1"};
-const int MQTT_LOCAL_BROKER_PORT{1883};
+const int MQTT_LOCAL_BROKER_PORT{9001};
 
-const std::string MQTT_TOPIC_ROOT{"ESEiot/" + GROUP + "/" + HOSTNAME};
+const std::string MQTT_TOPIC_ROOT{"HWSB"};
 
 #endif

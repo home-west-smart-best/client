@@ -9,15 +9,17 @@ set (CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 find_package(Mosquitto)
 
 include_directories(${MOSQUITTO_INCLUDE_DIR})
+include_directories(lib)
 
 set(SOURCE_FILES
         src/main.cpp
-        src/CommandProcessor.cpp
-        src/MQTTconfig.cpp
         src/application.cpp
-        src/Tokenizer.cpp
-        src/Topic.cpp)
+        src/thermostat.cpp
+        lib/_libMQTT/CommandProcessor.cpp
+        lib/_libMQTT/MQTTconfig.cpp
+        lib/_libMQTT/Tokenizer.cpp
+        lib/_libMQTT/Topic.cpp)
 
 add_executable(client ${SOURCE_FILES})
 
-target_link_libraries (client mosquittopp)
+target_link_libraries (client mosquittopp pthread)
