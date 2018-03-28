@@ -2,8 +2,7 @@
 
 #include "AppInfo.h"
 #include "MQTTconfig.h"
-#include "Example.h"
-#include "TemperatureConverter.h"
+#include "application.h"
 #include <atomic>
 #include <csignal>
 #include <iostream>
@@ -55,14 +54,11 @@ int main(int argc, char *argv[])
         cout << "uses Mosquitto lib version "
              << major << '.' << minor << '.' << revision << endl;
 
-        // First MQTT client
-        Example commandProcessor("Cp", "cp", mqttBroker, mqttBrokerPort);
         // Second MQTT client
-        TemperatureConverter tc("Tc", "tc", mqttBroker, mqttBrokerPort);
+        Application tc("Tc", "tc", mqttBroker, mqttBrokerPort);
 
         // Checking rc for reconnection, 'clients' is an initializer_list
-        auto clients = {static_cast<mosqpp::mosquittopp *>(&commandProcessor),
-                        static_cast<mosqpp::mosquittopp *>(&tc)};
+        auto clients = {static_cast<mosqpp::mosquittopp *>(&tc)};
 
         while (!receivedSIGINT)
         {

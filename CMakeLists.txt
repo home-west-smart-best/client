@@ -13,9 +13,8 @@ include_directories(${MOSQUITTO_INCLUDE_DIR})
 set(SOURCE_FILES
         src/main.cpp
         src/CommandProcessor.cpp
-        src/Example.cpp
         src/MQTTconfig.cpp
-        src/TemperatureConverter.cpp
+        src/application.cpp
         src/Tokenizer.cpp
         src/Topic.cpp)
 

@@ -1,7 +1,7 @@
 #ifndef APPINFO_H
 #define APPINFO_H
 
-#define APPNAME "cpMQTT"
+#define APPNAME "HWSB"
 
 #define MAJOR_VERSION "2"
 #define MINOR_VERSION "2"
