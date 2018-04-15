@@ -13,7 +13,7 @@ include_directories(
         lib
         lib/_libMQTT
         lib/_libSenseHAT
-        lib/json/single_include/nlohmann)
+        lib/nlohmann)
 
 set(SOURCE_FILES
         src/main.cpp
