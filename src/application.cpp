@@ -2,23 +2,33 @@
 #include "application.h"
 #include <iostream>
 
-AppController::AppController(const std::string &appname,
-                             const std::string &clientname,
-                             const std::string &host,
-                             int port)
-        : CommandProcessor(appname, clientname, host, port)
+Switch::Switch(const std::string &appname,
+               const std::string &clientname,
+               const std::string &host,
+               int port)
+        : Functionality(appname, clientname, host, port)
 {
-    // create functionalities
-    _thermostat =  std::make_unique<Thermostat>(appname, "thermostat", host, port);
+    registerCommand("set_state", std::bind(&Switch::setState, this, std::placeholders::_1));
+    registerCommand("get_state", std::bind(&Switch::getState, this, std::placeholders::_1));
 
-    // deprecated
-//    setFunctionality({R"([{"name" : "thermostat", "value" : true}])"});
-
-    std::cerr << "---- ** Application started: " << topicRoot_.c_str() << std::endl;
+    std::cerr << "---- ** Created " << clientname << ": " << topicRoot_.c_str() << "\n";
 }
 
-AppController::~AppController()
+Switch::~Switch()
+= default;
+
+void Switch::setState(const Switch::parameters_t &commandParameters)
 {
-    std::cerr << "---- ** Destroy AppController" << std::endl;
+    json j = json::parse(commandParameters[0]);
+
+    std::cerr << "switch set to " << j["state"].get<bool>() << "\n";
 }
 
+void Switch::getState(const Switch::parameters_t &commandParameters)
+{
+    json j;
+
+    j["state"] = _currentState;
+
+    publishReturn("get_state", j.dump());
+}

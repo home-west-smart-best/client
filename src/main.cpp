@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
         signal(SIGINT, handleSIGINT);
 
         string mqttBroker{MQTT_LOCAL_BROKER};
-        int mqttBrokerPort{MQTT_LOCAL_BROKER_PORT};
+        int    mqttBrokerPort{MQTT_LOCAL_BROKER_PORT};
 
         switch (argc)
         {
@@ -35,12 +35,12 @@ int main(int argc, char *argv[])
                 mqttBroker = string(argv[1]);
                 break;
             case 3:
-                mqttBroker = string(argv[1]);
+                mqttBroker     = string(argv[1]);
                 mqttBrokerPort = stoi(argv[2]);
                 break;
             default:
                 cerr << endl << "ERROR command line arguments: "
-                        "cpMQTT <URL broker> <broker port>" << endl;
+                                "cpMQTT <URL broker> <broker port>" << endl;
                 exit(EXIT_FAILURE);
         }
 
@@ -55,10 +55,13 @@ int main(int argc, char *argv[])
 //             << major << '.' << minor << '.' << revision << endl;
 
         // TODO: dynamaic room names
-        AppController app("room1", "app", mqttBroker, mqttBrokerPort);
+//        AppController app("room1", "app", mqttBroker, mqttBrokerPort);
+        Thermostat thermostat("room1", "thermostat", mqttBroker, mqttBrokerPort);
+        Switch     sw("room1", "switch", mqttBroker, mqttBrokerPort);
 
         // Checking rc for reconnection, 'clients' is an initializer_list
-        auto clients = {static_cast<mosqpp::mosquittopp *>(&app)};
+        auto clients = {static_cast<mosqpp::mosquittopp *>(&thermostat),
+                        static_cast<mosqpp::mosquittopp *>(&sw)};
 
         while (!receivedSIGINT)
         {

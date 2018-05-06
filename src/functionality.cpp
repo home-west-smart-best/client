@@ -29,8 +29,6 @@ void Functionality::start()
 
     _thread = std::thread(_routine);
     loop();
-
-    std::cerr << "---- ** Started " << clientname_.c_str() <<"\n";
 }
 
 void Functionality::stop()

@@ -17,7 +17,7 @@ Thermostat::Thermostat(const std::string& appname,
     registerCommand("set_target_temperature", std::bind(&Thermostat::setTargetTemperature, this, std::placeholders::_1));
     registerCommand("get_target_temperature", std::bind(&Thermostat::getTargetTemperature, this, std::placeholders::_1));
 
-    std::cerr << "---- ** Created functionality " << clientname << ": " << topicRoot_.c_str() <<"\n";
+    std::cerr << "---- ** Created " << clientname << ": " << topicRoot_.c_str() <<"\n";
 
     start();
 }
@@ -49,5 +49,10 @@ void Thermostat::setTargetTemperature(const parameters_t &commandParameters)
 
 void Thermostat::getTargetTemperature(const parameters_t &commandParameters)
 {
-    publishAddition("target_temperature", std::to_string(_targetTemperature));
+    json j;
+
+    j["unit"]["celsius"] = _targetTemperature;
+    j["unit"]["fahrenheit"] = _targetTemperature;
+
+    publishReturn("get_target_temperature", j.dump());
 }

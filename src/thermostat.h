@@ -31,7 +31,7 @@ public:
     void routine();
 
 private:
-    int _targetTemperature;
+    int _targetTemperature{};
 };
 
 #endif //CLIENT_THERMOSTAT_H

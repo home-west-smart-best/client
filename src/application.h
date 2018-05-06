@@ -8,21 +8,25 @@
 #include "json.hpp"
 #include "thermostat.h"
 
-class AppController : public CommandProcessor
+class Switch : public Functionality
 {
-    using functionality_t = std::unique_ptr<Functionality>;
+    using parameters_t = std::vector<std::string>;
     using json = nlohmann::json;
 
 public:
-    AppController(const std::string &appname,
-                const std::string &clientname,
-                const std::string &host,
-                int port);
+    Switch(const std::string &appname,
+           const std::string &clientname,
+           const std::string &host,
+           int port);
 
-    ~AppController() override;
+    ~Switch() override;
+
+    void setState(const parameters_t &commandParameters);
+
+    void getState(const parameters_t &commandParameters);
 
 private:
-    std::unique_ptr<Thermostat> _thermostat;
+    int _currentState{};
 };
 
 #endif
