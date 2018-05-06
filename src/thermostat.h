@@ -7,13 +7,15 @@
 
 #include <thread>
 #include <memory>
+#include <nlohmann/json.hpp>
 
 #include "functionality.h"
 
-using parameters_t = std::vector<std::string>;
-
 class Thermostat : public Functionality
 {
+    using parameters_t = std::vector<std::string>;
+    using json = nlohmann::json;
+
 public:
     Thermostat(const std::string &appname,
             const std::string &clientname,
@@ -24,7 +26,7 @@ public:
 
     void setTargetTemperature(const parameters_t &commandParameters);
 
-    int getTargetTemperature(const parameters_t &commandParameters) const;
+    void getTargetTemperature(const parameters_t &commandParameters);
 
     void routine();
 

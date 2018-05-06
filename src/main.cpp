@@ -48,14 +48,14 @@ int main(int argc, char *argv[])
         int minor{0};
         int revision{0};
 
-        cout << "-- MQTT application: " << APPNAME_VERSION << "  ";
-        mosqpp::lib_init();
-        mosqpp::lib_version(&major, &minor, &revision);
-        cout << "uses Mosquitto lib version "
-             << major << '.' << minor << '.' << revision << endl;
+//        cout << "-- MQTT application: " << APPNAME_VERSION << "  ";
+//        mosqpp::lib_init();
+//        mosqpp::lib_version(&major, &minor, &revision);
+//        cout << "uses Mosquitto lib version "
+//             << major << '.' << minor << '.' << revision << endl;
 
-        // Second MQTT client
-        AppController app("control", "app", mqttBroker, mqttBrokerPort);
+        // TODO: dynamaic room names
+        AppController app("room1", "app", mqttBroker, mqttBrokerPort);
 
         // Checking rc for reconnection, 'clients' is an initializer_list
         auto clients = {static_cast<mosqpp::mosquittopp *>(&app)};

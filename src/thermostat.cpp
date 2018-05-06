@@ -14,7 +14,10 @@ Thermostat::Thermostat(const std::string& appname,
 {
     setRoutine(std::bind(&Thermostat::routine, this));
 
-    std::cerr << "---- ** Created app: " << appname <<"\n";
+    registerCommand("set_target_temperature", std::bind(&Thermostat::setTargetTemperature, this, std::placeholders::_1));
+    registerCommand("get_target_temperature", std::bind(&Thermostat::getTargetTemperature, this, std::placeholders::_1));
+
+    std::cerr << "---- ** Created functionality " << clientname << ": " << topicCommandRoot_.c_str() <<"\n";
 }
 
 Thermostat::~Thermostat()
@@ -24,7 +27,7 @@ void Thermostat::routine()
 {
     for (;;)
     {
-        // TBD
+        // TODO: real sensor data
         publishAddition("temperature/celsius", "21");
         publishAddition("temperature/fahrenheit", "83");
         delay(1000);
@@ -33,11 +36,12 @@ void Thermostat::routine()
 
 void Thermostat::setTargetTemperature(const parameters_t &commandParameters)
 {
-    //TBD
-    _targetTemperature = 50;
+    json j = json::parse(commandParameters[0]);
+
+    _targetTemperature = j["value"];
 }
 
-int Thermostat::getTargetTemperature(const parameters_t &commandParameters) const
+void Thermostat::getTargetTemperature(const parameters_t &commandParameters)
 {
-    return _targetTemperature;
+    publishAddition("target_temperature", std::to_string(_targetTemperature));
 }

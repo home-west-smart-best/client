@@ -21,12 +21,16 @@ Functionality::~Functionality()
 
 void Functionality::start()
 {
-    if(_thread.joinable()) _thread.detach();
+    if(_thread.joinable())
+    {
+        std::cerr << "---- ** Functionality already started, restarting...\n";
+        _thread.detach();
+    }
 
     _thread = std::thread(_routine);
     loop();
 
-    std::cerr << "---- ** Started " << appname_ <<"\n";
+    std::cerr << "---- ** Started " << clientname_.c_str() <<"\n";
 }
 
 void Functionality::stop()

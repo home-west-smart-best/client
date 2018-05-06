@@ -12,11 +12,11 @@ AppController::AppController(const std::string &appname,
     registerCommand("get_functionality", std::bind(&AppController::getFunctionality, this, std::placeholders::_1));
 
     // create functionalities
-    _functionalities.emplace("thermostat", std::make_unique<Thermostat>("thermostat", "app", host, port));
+    _functionalities.emplace("thermostat", std::make_unique<Thermostat>(appname, "thermostat", host, port));
 
-//    setFunctionality({R"([{"name" : "thermostat", "value" : false}])"});
+    setFunctionality({R"([{"name" : "thermostat", "value" : true}])"});
 
-    std::cerr << "---- ** Application started" << std::endl;
+    std::cerr << "---- ** Application started: " << topicCommandRoot_.c_str() << std::endl;
 }
 
 AppController::~AppController()
@@ -47,17 +47,4 @@ void AppController::setFunctionality(const std::vector<std::string> &commandPara
 void AppController::getFunctionality(const std::vector<std::string> &commandParameters)
 {
 
-}
-
-int AppController::createFunctionality(const std::string &func)
-{
-//    if(_functionalities.find(func) != _functionalities.end())
-//    {
-//        _functionalities.emplace(func, std::make_shared<Thermostat>("thermostat", "app", host, port));
-//    }
-//    else
-//    {
-//        sto
-//    }
-    return 0;
 }

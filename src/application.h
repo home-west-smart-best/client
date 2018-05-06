@@ -26,8 +26,6 @@ private:
 
     void getFunctionality(const std::vector<std::string> &commandParameters);
 
-    int createFunctionality(const std::string &func);
-
     std::map<std::string, functionality_t> _functionalities;
 };
 
