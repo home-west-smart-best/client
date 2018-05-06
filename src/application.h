@@ -22,11 +22,7 @@ public:
     ~AppController() override;
 
 private:
-    void setFunctionality(const std::vector<std::string> &commandParameters);
-
-    void getFunctionality(const std::vector<std::string> &commandParameters);
-
-    std::map<std::string, functionality_t> _functionalities;
+    std::unique_ptr<Thermostat> _thermostat;
 };
 
 #endif

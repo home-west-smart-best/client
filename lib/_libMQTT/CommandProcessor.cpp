@@ -8,11 +8,12 @@ CommandProcessor::CommandProcessor(const std::string &appname,
                                    const std::string &clientname,
                                    const std::string &host,
                                    int port)
-        : mosqpp::mosquittopp{(HOSTNAME + appname + clientname).c_str()}, appname_{appname}, clientname_{clientname},
+        : mosqpp::mosquittopp{(HOSTNAME + "/" + clientname).c_str()}, appname_{appname}, clientname_{clientname},
           topicRoot_{MQTT_TOPIC_ROOT}, topicCommandRoot_{MQTT_TOPIC_ROOT}, commands_{}
 {
     topicRoot_.add(appname_).add(clientname_);
     topicCommandRoot_.add(appname_).add(clientname_).add("command");
+
     connect(host.c_str(), port, MQTT_KEEP_ALIVE);
 }
 
