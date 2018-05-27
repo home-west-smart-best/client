@@ -28,7 +28,7 @@ void Ping::routine()
         json j;
 
         // TODO: real sensor data
-        j["id"] = std::atoi(appname_.c_str());
+        j["id"] = std::atoi(clientname_.c_str());
 
         publishAddition("pong", j.dump());
         delay(500);
