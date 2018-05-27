@@ -2,7 +2,7 @@
 
 #include "AppInfo.h"
 #include "_libMQTT/MQTTconfig.h"
-#include "application.h"
+#include "switch.h"
 #include "ping.h"
 #include <atomic>
 #include <csignal>
@@ -63,9 +63,9 @@ int main(int argc, char *argv[])
         auto id = std::to_string(dist(rng));
 
         // TODO: dynamaic room names
+        Ping ping("ping", id, mqttBroker, mqttBrokerPort);
         Thermostat thermostat(id, "thermostat", mqttBroker, mqttBrokerPort);
         Switch sw(id, "switch", mqttBroker, mqttBrokerPort);
-        Ping ping("ping", id, mqttBroker, mqttBrokerPort);
 
         // Checking rc for reconnection, 'clients' is an initializer_list
         auto clients = {static_cast<mosqpp::mosquittopp *>(&thermostat),

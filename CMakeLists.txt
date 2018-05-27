@@ -17,7 +17,7 @@ include_directories(
 
 set(SOURCE_FILES
         src/main.cpp
-        src/application.cpp
+        src/switch.cpp
         src/functionality.cpp
         src/thermostat.cpp
         src/ping.cpp

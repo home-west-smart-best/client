@@ -1,6 +1,7 @@
 #include "MQTTconfig.h"
-#include "application.h"
+#include "switch.h"
 #include <iostream>
+#include <random>
 
 Switch::Switch(const std::string &appname,
                const std::string &clientname,
@@ -10,6 +11,17 @@ Switch::Switch(const std::string &appname,
 {
   registerCommand("set_state", std::bind(&Switch::setState, this, std::placeholders::_1));
   registerCommand("get_state", std::bind(&Switch::getState, this, std::placeholders::_1));
+
+  json j;
+
+  std::mt19937 rng;
+  rng.seed(std::random_device()());
+  std::uniform_int_distribution<std::mt19937::result_type> dist(0, 1);
+
+  j["id"] = std::atoi(appname.c_str());
+  j["state"] = (bool)(dist(rng));
+
+  publishAddition("state", j.dump());
 
   std::cerr << "---- ** Created " << clientname << ": " << topicRoot_.c_str() << "\n";
 }
