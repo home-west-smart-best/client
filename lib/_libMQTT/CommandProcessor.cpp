@@ -113,3 +113,8 @@ void CommandProcessor::publishError(const std::string &command,
 {
     publishAddition("command/" + command + "/error", message);
 }
+
+void CommandProcessor::set_lwt(const char *topic, int payloadlen, const void *payload, int qos, bool retain)
+{
+  will_set(topic, payloadlen, payload, qos, retain);
+}

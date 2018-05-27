@@ -62,6 +62,8 @@ public:
 
     void publishError(const std::string &command, const std::string &message);
 
+    void set_lwt(const char *topic, int payloadlen=0, const void *payload=NULL, int qos=0, bool retain=false);
+
 protected:
     std::string appname_;
     std::string clientname_;

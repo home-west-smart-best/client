@@ -13,13 +13,20 @@ Ping::Ping(const std::string& appname,
 {
     setRoutine(std::bind(&Ping::routine, this));
 
+    auto msg = std::string("{\"id\":") + clientname + "}";
+
+    set_lwt("hwsb/disconnect", msg.size(), msg.c_str(), 0, false);
+
     std::cerr << "---- ** Created " << appname << ": " << topicRoot_.c_str() <<"\n";
 
     start();
 }
 
-Ping::~Ping()
-= default;
+Ping::~Ping() {
+  auto msg = std::string("{\"id\":") + clientname_ + "}";
+
+  publish(nullptr, "hwsb/disconnect", msg.size(), msg.c_str(), 0, false);
+}
 
 void Ping::routine()
 {

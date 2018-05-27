@@ -46,10 +46,10 @@ int main(int argc, char *argv[])
                 exit(EXIT_FAILURE);
         }
 
-        int major{0};
-        int minor{0};
-        int revision{0};
-
+//        int major{0};
+//        int minor{0};
+//        int revision{0};
+//
 //        cout << "-- MQTT application: " << APPNAME_VERSION << "  ";
 //        mosqpp::lib_init();
 //        mosqpp::lib_version(&major, &minor, &revision);
