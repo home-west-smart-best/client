@@ -20,6 +20,7 @@ set(SOURCE_FILES
         src/application.cpp
         src/functionality.cpp
         src/thermostat.cpp
+        src/ping.cpp
         lib/_libMQTT/CommandProcessor.cpp
         lib/_libMQTT/MQTTconfig.cpp
         lib/_libMQTT/Tokenizer.cpp

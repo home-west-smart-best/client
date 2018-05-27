@@ -3,9 +3,11 @@
 #include "AppInfo.h"
 #include "_libMQTT/MQTTconfig.h"
 #include "application.h"
+#include "ping.h"
 #include <atomic>
 #include <csignal>
 #include <iostream>
+#include <random>
 
 using namespace std;
 
@@ -23,7 +25,7 @@ int main(int argc, char *argv[])
         signal(SIGINT, handleSIGINT);
 
         string mqttBroker{MQTT_LOCAL_BROKER};
-        int    mqttBrokerPort{MQTT_LOCAL_BROKER_PORT};
+        int mqttBrokerPort{MQTT_LOCAL_BROKER_PORT};
 
         switch (argc)
         {
@@ -35,12 +37,12 @@ int main(int argc, char *argv[])
                 mqttBroker = string(argv[1]);
                 break;
             case 3:
-                mqttBroker     = string(argv[1]);
+                mqttBroker = string(argv[1]);
                 mqttBrokerPort = stoi(argv[2]);
                 break;
             default:
                 cerr << endl << "ERROR command line arguments: "
-                                "cpMQTT <URL broker> <broker port>" << endl;
+                        "cpMQTT <URL broker> <broker port>" << endl;
                 exit(EXIT_FAILURE);
         }
 
@@ -54,14 +56,21 @@ int main(int argc, char *argv[])
 //        cout << "uses Mosquitto lib version "
 //             << major << '.' << minor << '.' << revision << endl;
 
+        std::mt19937 rng;
+        rng.seed(std::random_device()());
+        std::uniform_int_distribution<std::mt19937::result_type> dist(1, 10000); // distribution in range [1, 6]
+
+        auto id = std::to_string(dist(rng));
+
         // TODO: dynamaic room names
-//        AppController app("room1", "app", mqttBroker, mqttBrokerPort);
-        Thermostat thermostat("room1", "thermostat", mqttBroker, mqttBrokerPort);
-        Switch     sw("room1", "switch", mqttBroker, mqttBrokerPort);
+        Thermostat thermostat(id, "thermostat", mqttBroker, mqttBrokerPort);
+        Switch sw(id, "switch", mqttBroker, mqttBrokerPort);
+        Ping ping("ping", id, mqttBroker, mqttBrokerPort);
 
         // Checking rc for reconnection, 'clients' is an initializer_list
         auto clients = {static_cast<mosqpp::mosquittopp *>(&thermostat),
-                        static_cast<mosqpp::mosquittopp *>(&sw)};
+                        static_cast<mosqpp::mosquittopp *>(&sw),
+                        static_cast<mosqpp::mosquittopp *>(&ping)};
 
         while (!receivedSIGINT)
         {
