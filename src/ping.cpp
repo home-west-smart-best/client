@@ -13,7 +13,7 @@ Ping::Ping(const std::string& appname,
 {
     setRoutine(std::bind(&Ping::routine, this));
 
-    std::cerr << "---- ** Created " << clientname << ": " << topicRoot_.c_str() <<"\n";
+    std::cerr << "---- ** Created " << appname << ": " << topicRoot_.c_str() <<"\n";
 
     start();
 }
