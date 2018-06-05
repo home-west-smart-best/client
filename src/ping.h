@@ -14,10 +14,8 @@ class Ping : public Functionality
     using json = nlohmann::json;
 
 public:
-    Ping(const std::string &appname,
-               const std::string &clientname,
-               const std::string &host,
-               int port);
+    Ping(const std::string &appname, const std::string &clientname, const std::string &host, int port,
+             std::string id);
 
     ~Ping() override;
 

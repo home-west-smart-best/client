@@ -17,10 +17,8 @@ class Thermostat : public Functionality
     using json = nlohmann::json;
 
 public:
-    Thermostat(const std::string &appname,
-            const std::string &clientname,
-            const std::string &host,
-            int port);
+    Thermostat(const std::string &appname, const std::string &clientname, const std::string &host, int port,
+                   std::string id);
 
     ~Thermostat() override;
 

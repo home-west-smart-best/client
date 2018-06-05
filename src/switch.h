@@ -14,10 +14,8 @@ class Switch : public Functionality
     using json = nlohmann::json;
 
 public:
-    Switch(const std::string &appname,
-           const std::string &clientname,
-           const std::string &host,
-           int port);
+    Switch(const std::string &appname, const std::string &clientname, const std::string &host, int port,
+               std::string id);
 
     ~Switch() override;
 

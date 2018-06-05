@@ -14,10 +14,8 @@ class Functionality : public CommandProcessor
 public:
     using routine_t = std::function<void()>;
 
-    Functionality(const std::string &appname,
-                  const std::string &clientname,
-                  const std::string &host,
-                  int port);
+    Functionality(const std::string &appname, const std::string &clientname, const std::string &host,
+                      int port, std::string id);
 
     ~Functionality() override;
 

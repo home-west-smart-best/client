@@ -5,11 +5,9 @@
 #include <iostream>
 #include "ping.h"
 
-Ping::Ping(const std::string& appname,
-                       const std::string& clientname,
-                       const std::string& host,
-                       int port):
-        Functionality(appname, clientname, host, port)
+Ping::Ping(const std::string &appname, const std::string &clientname, const std::string &host, int port,
+           std::string id) :
+        Functionality(appname, clientname, host, port, id)
 {
     setRoutine(std::bind(&Ping::routine, this));
 

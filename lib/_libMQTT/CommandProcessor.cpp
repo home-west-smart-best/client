@@ -4,11 +4,9 @@
 #include "Topic.h"
 #include <iostream>
 
-CommandProcessor::CommandProcessor(const std::string &appname,
-                                   const std::string &clientname,
-                                   const std::string &host,
-                                   int port)
-        : mosqpp::mosquittopp{(HOSTNAME + "/" + clientname).c_str()}, appname_{appname}, clientname_{clientname},
+CommandProcessor::CommandProcessor(const std::string &appname, const std::string &clientname,
+                                   const std::string &host, int port, const std::string &id)
+        : mosqpp::mosquittopp{(id + "/" + clientname).c_str()}, appname_{appname}, clientname_{clientname},
           topicRoot_{MQTT_TOPIC_ROOT}, topicCommandRoot_{MQTT_TOPIC_ROOT}, commands_{}
 {
     topicRoot_.add(appname_).add(clientname_);

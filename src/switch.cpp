@@ -3,11 +3,9 @@
 #include <iostream>
 #include <random>
 
-Switch::Switch(const std::string &appname,
-               const std::string &clientname,
-               const std::string &host,
-               int port)
-    : Functionality(appname, clientname, host, port)
+Switch::Switch(const std::string &appname, const std::string &clientname, const std::string &host, int port,
+               std::string id)
+    : Functionality(appname, clientname, host, port, id)
 {
   registerCommand("set_state", std::bind(&Switch::setState, this, std::placeholders::_1));
   registerCommand("get_state", std::bind(&Switch::getState, this, std::placeholders::_1));

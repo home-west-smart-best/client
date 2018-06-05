@@ -63,9 +63,9 @@ int main(int argc, char *argv[])
         auto id = std::to_string(dist(rng));
 
         // TODO: dynamaic room names
-        Ping ping("ping", id, mqttBroker, mqttBrokerPort);
-        Thermostat thermostat(id, "thermostat", mqttBroker, mqttBrokerPort);
-        Switch sw(id, "switch", mqttBroker, mqttBrokerPort);
+        Ping ping("ping", id, mqttBroker, mqttBrokerPort, id);
+        Thermostat thermostat(id, "thermostat", mqttBroker, mqttBrokerPort, id);
+        Switch sw(id, "switch", mqttBroker, mqttBrokerPort, id);
 
         // Checking rc for reconnection, 'clients' is an initializer_list
         auto clients = {static_cast<mosqpp::mosquittopp *>(&thermostat),

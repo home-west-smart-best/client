@@ -6,11 +6,9 @@
 
 #include "thermostat.h"
 
-Thermostat::Thermostat(const std::string &appname,
-                       const std::string &clientname,
-                       const std::string &host,
-                       int port) :
-    Functionality(appname, clientname, host, port)
+Thermostat::Thermostat(const std::string &appname, const std::string &clientname, const std::string &host, int port,
+                       std::string id) :
+        Functionality(appname, clientname, host, port, id)
 {
   setRoutine(std::bind(&Thermostat::routine, this));
 

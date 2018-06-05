@@ -5,11 +5,9 @@
 #include <iostream>
 #include "functionality.h"
 
-Functionality::Functionality(const std::string &appname,
-                             const std::string &clientname,
-                             const std::string &host,
-                             int port) :
-        CommandProcessor(appname, clientname, host, port)
+Functionality::Functionality(const std::string &appname, const std::string &clientname, const std::string &host,
+                             int port, std::string id) :
+        CommandProcessor(appname, clientname, host, port, id)
 {
 
 }

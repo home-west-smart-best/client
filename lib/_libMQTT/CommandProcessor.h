@@ -32,10 +32,8 @@ std::function<void(const std::vector<std::string> &commmandParameters)>;
 class CommandProcessor : public mosqpp::mosquittopp
 {
 public:
-    CommandProcessor(const std::string &appname,
-                     const std::string &clientname,
-                     const std::string &host,
-                     int port);
+    CommandProcessor(const std::string &appname, const std::string &clientname,
+                         const std::string &host, int port, const std::string &id);
 
     CommandProcessor(const CommandProcessor &other) = delete;
 
