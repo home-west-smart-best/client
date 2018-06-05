@@ -1,0 +1,25 @@
+/*!
+
+\mainpage Home-West-Smart-Best
+
+\section sec1 The application
+
+With the Home-West-Smart-Best application, you can easily manage all your rooms in your house. 
+
+this application uses the Mosquitto C and C++ library, this library must be installed.
+
+\section sec2 Project members
+
+<img src="Bas.jpg" align="left"/> Bas van den Berg <br> <br> <br> <br>
+<img src="Jamie.jpg" align="left"/> Jamie Cheng <br> <br> <br> <br>
+
+\section sec3 Usage
+
+Start the client with: 
+
+./client broker.hivemq.com 1883
+
+Open the dashboard. The device will be automatically added to the dashboard.
+
+*/
+

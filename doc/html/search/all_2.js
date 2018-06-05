@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['switch',['Switch',['../class_switch.html',1,'']]]
+  ['ping',['Ping',['../class_ping.html',1,'']]]
 ];

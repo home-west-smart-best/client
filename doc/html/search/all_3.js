@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['thermostat',['Thermostat',['../class_thermostat.html',1,'']]]
+  ['switch',['Switch',['../class_switch.html',1,'']]]
 ];
