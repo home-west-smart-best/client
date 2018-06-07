@@ -21,5 +21,9 @@ Start the client with:
 
 Open the dashboard. The device will be automatically added to the dashboard.
 
+\section sec3 Known bugs
+
+The dashboard removes all clients when one client is disconnected.
+
 */
 
